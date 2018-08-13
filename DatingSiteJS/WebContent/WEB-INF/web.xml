@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+	<display-name>tvtrackerjs</display-name>
+	
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>datingsite.Login</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetPress</servlet-name>
+		<servlet-class>datingsite.GetPress</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetPress</servlet-name>
+		<url-pattern>/GetPress</url-pattern>
+	</servlet-mapping>
+	<!--
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping>
+	-->
+	
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <listener>
+      <listener-class>datingsite.Runtime</listener-class>
+    </listener>
+
+</web-app>

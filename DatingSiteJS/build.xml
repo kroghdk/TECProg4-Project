@@ -1,0 +1,96 @@
+<project basedir="." default="build" name="DatingSiteJS">
+   <!-- $Header: $ -->
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <!--<path id="Apache Tomcat v7.0 [Apache Tomcat v7.0].libraryclasspath">
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/annotations-api.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/catalina-ant.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/catalina-ha.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/catalina-tribes.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/catalina.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/ecj-4.4.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/el-api.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/jasper-el.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/jasper.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/jsp-api.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/servlet-api.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-api.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-coyote.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-dbcp.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-i18n-es.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-i18n-fr.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-i18n-ja.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-jdbc.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat-util.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/tomcat7-websocket.jar"/>
+        <pathelement location="../../../../../../../../xampp/tomcat/lib/websocket-api.jar"/>
+    </path>-->
+    <path id="Apache Tomcat v7.0 [Apache Tomcat v7.0].libraryclasspath">
+			  <fileset dir="${env.CATALINA_HOME}/lib">
+			    <include name="**/*.jar"/>
+			  </fileset>
+    </path>
+    <path id="Web App Libraries.libraryclasspath"><!--
+        <pathelement location="WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jaxen-full.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/mysql-connector.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/saxpath.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/riftgenlib.jar"/>-->
+			  <fileset dir="WebContent/WEB-INF/lib">
+			    <include name="**/*.jar"/>
+			  </fileset>
+    </path>
+    <path id="EAR Libraries.libraryclasspath"/>
+    <path id="datingsite.classpath">
+        <pathelement location="WebContent/WEB-INF/classes"/>
+        <path refid="Apache Tomcat v7.0 [Apache Tomcat v7.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/><!--
+        <pathelement location="WebContent/WEB-INF/lib/mysql-connector.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jaxen-full.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/saxpath.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/riftgenlib.jar"/>-->
+			  <fileset dir="WebContent/WEB-INF/lib">
+			    <include name="**/*.jar"/>
+			  </fileset>
+    </path>
+    <target name="init">
+        <mkdir dir="WebContent/WEB-INF/classes"/>
+        <copy includeemptydirs="false" todir="WebContent/WEB-INF/classes">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="WebContent/WEB-INF/classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="WebContent/WEB-INF/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="datingsite.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+	<target name="war" description="Bundles the application as a WAR file" depends="clean, build">
+    	<mkdir dir="WebContent/WEB-INF/classes"/>
+              	     
+    	<copy includeemptydirs="false" todir="WebContent/WEB-INF/classes">
+			<fileset dir="WebContent/WEB-INF/classes">
+            <include name="**/*.class"/>
+            </fileset>
+		</copy>
+              	     
+		<war destfile="DatingSiteJS.war"
+        	basedir="WebContent"
+        	needxmlfile="false">
+    </war>
+	</target>
+</project>

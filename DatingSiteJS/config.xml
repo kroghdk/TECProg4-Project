@@ -1,0 +1,28 @@
+
+<ROOT>
+  <CONFIG>
+    <auth_key>AFgIqXX1WTBoRd8QX5wgJGWynMdITB5t</auth_key>
+    <jdbc_driver>com.mysql.jdbc.Driver</jdbc_driver>
+  	<db_url>jdbc:mysql://localhost:3306/CruxEngine?zeroDateTimeBehavior=convertToNull</db_url>
+  	<db_user>user</db_user>
+  	<db_pass>password</db_pass>
+  	<debug>true</debug>
+  	<environment>dev</environment>
+  	<log_file>/var/log/tomcat7/cejs.log</log_file>
+  	<log_file_size>10</log_file_size> <!-- MB -->
+  	<hostname>dev.cruxengine.com</hostname>
+  	<rg_api>https://dev.riftgen.com</rg_api>
+  	<session_timeout>86400000</session_timeout> <!-- 1 day -->
+  	<!--<session_timeout>3600000</session_timeout>--> <!-- 60 min -->
+    <!--<session_timeout>60</session_timeout>-->
+  	<session_ip_bind>false</session_ip_bind>
+  	<session_key_length>128</session_key_length>
+  	<access_key>riftgen key</access_key>
+    <process_pool_size>2</process_pool_size>
+    <process_init_delay>10</process_init_delay>
+    <process_interval>60</process_interval>
+    <mail_email>test@test.test</mail_email>
+    <mail_password>password</mail_password>
+    <projects_folder>/srv/cejs/projects</projects_folder>
+  </CONFIG>
+</ROOT>

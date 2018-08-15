@@ -5,10 +5,19 @@
 		<servlet-name>Test</servlet-name>
 		<servlet-class>datingsite.Test</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetMessage</servlet-name>
+		<servlet-class>datingsite.GetMessage</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>Test</servlet-name>
 		<url-pattern>/Test</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetMessage</servlet-name>
+		<url-pattern>/GetMessage</url-pattern>
 	</servlet-mapping>
 	<!--
 	<servlet-mapping>

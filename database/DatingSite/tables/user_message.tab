@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS user_message;
+CREATE TABLE user_message (
+  user_message_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  from_user int(11),
+  content varchar(2000),
+  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT user_message_user_fk FOREIGN KEY (from_user) REFERENCES user (user_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

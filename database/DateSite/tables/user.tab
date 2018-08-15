@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+  user_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  first_name varchar(255) NOT NULL,
+  last_name varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  birth_date date DEFAULT NULL,
+  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT user_uk UNIQUE (username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -19,11 +19,8 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.catalina.tribes.membership.StaticMember;
-import org.apache.jasper.runtime.ProtectedFunctionMapper;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.eclipse.jdt.internal.compiler.lookup.VariableBinding;
 
 import goflib.session.Session;
 import goflib.session.SessionController;
@@ -86,7 +83,7 @@ public class Runtime implements ServletContextListener {
 		  
 		  //System.out.println(this.getClass().getName()+" servlet is starting.");
 		  
-		  Runtime.config = new Config("/srv/tvtrackerjs/conf/config.xml", Config.ConfigTypes.XML);
+		  Runtime.config = new Config("/srv/datingsitejs/conf/config.xml", Config.ConfigTypes.XML);
 		  Runtime.console = new ConsoleLog(config);
 
 		  if(Runtime.console != null)Runtime.console.Debug("configOptions:" + Runtime.config.getConfitOptions().size());
@@ -106,63 +103,6 @@ public class Runtime implements ServletContextListener {
 		  }else{
 			  if(Runtime.console != null)console.Print(this.getClass().getName()+".contextInitialized - process config error");
 		  }
-		  
-
-		  try{
-			  XmlDoc requestXmlDoc = new XmlDoc();
-			  Element requestXmlDocRows = requestXmlDoc.selectSingleNode("//ROWS");
-			  Element requestXmlDocRow = requestXmlDoc.addChild(requestXmlDocRows, "ROWS");
-			  requestXmlDoc.addChild(requestXmlDocRow, "PRODUCT_AUTH_KEY", Runtime.config.GetOptionValue("auth_key"));
-			  PostMaster postMaster = new PostMaster(Runtime.console, Runtime.config.GetOptionValue("rg_api")+"/riftgenjs/GetSite");
-
-			  if(Runtime.console != null)Runtime.console.Debug(this.getClass().getName()+" - requestXmlDoc= "+requestXmlDoc.asXML());
-			  if(postMaster.PostXml(requestXmlDoc, null) == false){
-			  }
-          
-			  XmlDoc postMasterXmlDoc = postMaster.getRespond();
-
-			  if(Runtime.console != null)Runtime.console.Debug(this.getClass().getName()+" - postMasterXmlDoc.HasError= "+postMasterXmlDoc.HasError());
-			  if(postMasterXmlDoc.HasError() == true){
-  				
-			  }
-			  Element siteElement = postMasterXmlDoc.selectSingleNode("//PAGE/ROWS/ROW/SITE");
-
-			  Element siteIdElement = postMasterXmlDoc.selectSingleNode(siteElement, "SITE_ID");
-			  Integer siteId = Integer.parseInt(postMasterXmlDoc.getText(siteIdElement));
-			  
-			  Element siteNameElement = postMasterXmlDoc.selectSingleNode(siteElement, "SITE_NAME");
-			  String siteName = postMasterXmlDoc.getText(siteNameElement);
-			  
-			  Element siteShortNameElement = postMasterXmlDoc.selectSingleNode(siteElement, "SITE_SHORT_NAME");
-			  String siteShortName = postMasterXmlDoc.getText(siteShortNameElement);
-			  
-			  Element siteHostElement = postMasterXmlDoc.selectSingleNode(siteElement, "SITE_HOST");
-			  String siteHost = postMasterXmlDoc.getText(siteHostElement);
-			  
-			  List<Press> presses = new ArrayList<Press>();
-			  for (Node sitePressNode : postMasterXmlDoc.selectNodes("//PAGE/ROWS/ROW/SITE/SITE_PRESS")) {
-				  Element pressNameElement = postMasterXmlDoc.selectSingleNode((Element)sitePressNode, "PRESS_NAME");
-				  String pressName = postMasterXmlDoc.getText(pressNameElement);
-				  
-				  Element pressShortNameElement = postMasterXmlDoc.selectSingleNode((Element)sitePressNode, "PRESS_SHORT_NAME");
-				  String pressShortName = postMasterXmlDoc.getText(pressShortNameElement);
-				  
-				  Element pressMailFileElement = postMasterXmlDoc.selectSingleNode((Element)sitePressNode, "PRESS_MAIN_FILE");
-				  String pressMailFile = postMasterXmlDoc.getText(pressMailFileElement);
-				  
-				  Element pressRequireLoginElement = postMasterXmlDoc.selectSingleNode((Element)sitePressNode, "PRESS_REQUIRE_LOGIN");
-				  Boolean pressRequireLogin = Boolean.parseBoolean(postMasterXmlDoc.getText(pressRequireLoginElement));
-				  
-				  Element pressRequireAdminElement = postMasterXmlDoc.selectSingleNode((Element)sitePressNode, "PRESS_REQUIRE_ADMIN");
-				  Boolean pressRequireAdmin = Boolean.parseBoolean(postMasterXmlDoc.getText(pressMailFileElement));
-				  
-				  Press newSitePress = new Press(pressName, pressShortName, pressMailFile, pressRequireLogin, pressRequireAdmin);
-				  presses.add(newSitePress);
-			  }
-			  Runtime.site = new Site(siteId, siteName, siteHost, siteShortName, null, null, presses);
-          }catch(Exception e){
-        	  e.printStackTrace();
-          }
 	  }
 	  
 	  public void CheckSessionController(){

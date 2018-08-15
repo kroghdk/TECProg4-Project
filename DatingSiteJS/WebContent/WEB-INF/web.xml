@@ -9,6 +9,10 @@
 		<servlet-name>GetMessage</servlet-name>
 		<servlet-class>datingsite.GetMessage</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetMessageTest</servlet-name>
+		<servlet-class>datingsite.GetMessageTest</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>Test</servlet-name>
@@ -18,6 +22,11 @@
 	<servlet-mapping>
 		<servlet-name>GetMessage</servlet-name>
 		<url-pattern>/GetMessage</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetMessageTest</servlet-name>
+		<url-pattern>/GetMessageTest</url-pattern>
 	</servlet-mapping>
 	<!--
 	<servlet-mapping>

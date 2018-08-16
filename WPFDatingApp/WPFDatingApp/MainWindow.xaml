@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFDatingApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="920" Width="540"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <!--<Button Style="{DynamicResource MaterialDesignActionDarkCheckBox}" Grid.Row="1" Grid.Column="1"></Button> -->
+        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="auto" Margin="10,10,10,0"></Button> 
+        <Button Grid.Row="2" Grid.Column="0" Height="auto" Margin="10" Content="Message" FontSize="36" FontWeight="Bold"/>
+        <Button Grid.Row="2" Grid.Column="1" Height="auto" Margin="10" Content="Like" FontSize="36" FontWeight="Bold"/>
     </Grid>
 </Window>

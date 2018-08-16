@@ -13,6 +13,10 @@
 		<servlet-name>GetChat</servlet-name>
 		<servlet-class>datingsite.GetChat</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>datingsite.Login</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>GetUsers</servlet-name>
@@ -28,12 +32,11 @@
 		<servlet-name>GetChat</servlet-name>
 		<url-pattern>/GetChat</url-pattern>
 	</servlet-mapping>
-	<!--
+
 	<servlet-mapping>
-		<servlet-name>Logout</servlet-name>
-		<url-pattern>/Logout</url-pattern>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
-	-->
 	
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

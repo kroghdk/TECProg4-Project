@@ -28,11 +28,9 @@ import java.sql.Types;
 public class GetChat extends DSHttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/*
 	public Boolean setRequireSession(){
     	return true;
     }
-    */
     
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

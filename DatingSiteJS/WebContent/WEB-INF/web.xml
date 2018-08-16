@@ -2,21 +2,21 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
 	<display-name>tvtrackerjs</display-name>
 	<servlet>
-		<servlet-name>Test</servlet-name>
-		<servlet-class>datingsite.Test</servlet-class>
+		<servlet-name>GetUsers</servlet-name>
+		<servlet-class>datingsite.GetUsers</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GetMessage</servlet-name>
 		<servlet-class>datingsite.GetMessage</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>GetMessageTest</servlet-name>
-		<servlet-class>datingsite.GetMessageTest</servlet-class>
+		<servlet-name>GetChat</servlet-name>
+		<servlet-class>datingsite.GetChat</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Test</servlet-name>
-		<url-pattern>/Test</url-pattern>
+		<servlet-name>GetUsers</servlet-name>
+		<url-pattern>/GetUsers</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
@@ -25,8 +25,8 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>GetMessageTest</servlet-name>
-		<url-pattern>/GetMessageTest</url-pattern>
+		<servlet-name>GetChat</servlet-name>
+		<url-pattern>/GetChat</url-pattern>
 	</servlet-mapping>
 	<!--
 	<servlet-mapping>

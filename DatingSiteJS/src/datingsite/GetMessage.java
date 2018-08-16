@@ -28,14 +28,16 @@ import java.sql.Types;
 public class GetMessage extends DSHttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/*
 	public Boolean setRequireSession(){
     	return true;
     }
+    */
     
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestQueryParam requestQueryParams[] =
 				{
-						new RequestQueryParam("MESSAGE_ID", null, "user_message_id", Types.INTEGER, 1, 11, true)
+						new RequestQueryParam("USER", null, "user", Types.INTEGER, 1, 11, true)
 				};
 		RequestQuery requestQuery = new RequestQuery(request, requestQueryParams);
 		if(Runtime.console != null) Runtime.console.Debug(this.getClass().getName()+" - requestQuery= "+requestQuery.xmlDoc.asXML());
@@ -46,14 +48,17 @@ public class GetMessage extends DSHttpServlet {
 
 		try {
 		    PreparedStatement preparedStatement = database.getConnection().prepareStatement(
-		    		"SELECT * FROM user_message um, user_message_recipient umr" +
-							" WHERE um.user_message_id=umr.user_message_id AND umr.user_message_id=? AND umr.user_id=?");
-			preparedStatement.setInt(1, requestQuery.getIntParamValue("MESSAGE_ID"));
-			preparedStatement.setInt(2, user.getUserId());
+		    		"SELECT um.* FROM user_message um" +
+							" LEFT JOIN user_message_recipient umr ON (um.user_message_id = umr.user_message_id)" +
+							" LEFT JOIN user_message_recipient umr2 ON (um.user_message_id = umr.user_message_id)" +
+							" WHERE umr.user_message_id=umr2.user_message_id AND umr.user_id <> umr2.user_id AND umr.user_id=? AND umr2.user_id=?;");
+			preparedStatement.setInt(1, 1);//preparedStatement.setInt(1, user.getUserId());
+			preparedStatement.setInt(2, requestQuery.getIntParamValue("USER"));
 		    
 		    SQLQueryResult sqlQueryResult[] = {
-		    		new SQLQueryResult("RECEIVER", null, "receiver", "getInt"),
-					new SQLQueryResult("SENDER", null, "sender", "getString"),
+					new SQLQueryResult("USER_MESSAGE_ID", null, "from_user", "getInt"),
+					new SQLQueryResult("FROM_USER", null, "from_user", "getInt"),
+					new SQLQueryResult("CONTENT", null, "content", "getString"),
 					new SQLQueryResult("CREATED", null, "created", "getString")
 		    		};
 		    

@@ -1,0 +1,24 @@
+/**
+* Copyright Riftgen
+* $Revision: 781 $
+* $Date: 2018-06-15 17:23:21 +0200 (fr, 15 jun 2018) $
+* $Author: rkb $
+* $HeadURL: http://svn.riftgen.com/scm/svn/Riftgen/trunk/lbs/src/database/RealmsofLegazy/procedures/guild.bp $
+*/
+DROP PROCEDURE IF EXISTS sendmessage;
+
+DELIMITER //
+CREATE PROCEDURE sendmessage
+(message_from INT(11), message_to INT(11), message_content VARCHAR(2000), OUT message_id INT)
+BEGIN
+
+  INSERT INTO user_message (from_user, content) VALUES (message_from, message_content);
+
+  SELECT @user_message_id:=user_message_id as user_message_id FROM user_message WHERE user_message_id=last_insert_id();
+
+
+  INSERT INTO user_message_recipient (user_message_id, user_id) VALUES (@user_message_id, message_from);
+  INSERT INTO user_message_recipient (user_message_id, user_id) VALUES (@user_message_id, message_to);
+
+END //
+DELIMITER ;

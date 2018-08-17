@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.dom4j.Element;
 
 
-//@WebServlet("/Login")
 public class Login extends DSHttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -10,12 +10,20 @@
 		<servlet-class>datingsite.GetMessage</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>SendMessage</servlet-name>
+		<servlet-class>datingsite.SendMessage</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>GetChat</servlet-name>
 		<servlet-class>datingsite.GetChat</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>datingsite.Login</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ValidateSession</servlet-name>
+		<servlet-class>datingsite.ValidateSession</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -29,6 +37,11 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
+		<servlet-name>SendMessage</servlet-name>
+		<url-pattern>/SendMessage</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
 		<servlet-name>GetChat</servlet-name>
 		<url-pattern>/GetChat</url-pattern>
 	</servlet-mapping>
@@ -36,6 +49,11 @@
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ValidateSession</servlet-name>
+		<url-pattern>/ValidateSession</url-pattern>
 	</servlet-mapping>
 	
     <welcome-file-list>

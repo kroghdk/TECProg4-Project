@@ -33,6 +33,10 @@
 		<servlet-name>GetConnection</servlet-name>
 		<servlet-class>datingsite.GetConnection</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetMatches</servlet-name>
+		<servlet-class>datingsite.GetMatches</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>GetUsers</servlet-name>
@@ -72,6 +76,11 @@
 	<servlet-mapping>
 		<servlet-name>GetConnection</servlet-name>
 		<url-pattern>/GetConnection</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetMatches</servlet-name>
+		<url-pattern>/GetMatches</url-pattern>
 	</servlet-mapping>
 	
     <welcome-file-list>

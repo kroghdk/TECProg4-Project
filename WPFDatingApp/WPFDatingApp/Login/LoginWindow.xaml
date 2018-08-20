@@ -1,0 +1,39 @@
+﻿<Window x:Class="WPFDatingApp.Login.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDatingApp.Login"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="920" Width="540"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+    <Window.Background>
+        <ImageBrush ImageSource="/WPFDatingApp;component/Images/lovooove.jpg"/>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <PasswordBox Name="pwdBox" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Background="#FFECECEC" PasswordChanged="pwdBox_PasswordChanged"/>
+        <Label Name="lblPassword" IsHitTestVisible="False" Content="Password" VerticalAlignment="Top" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0" MinWidth="4" HorizontalAlignment="Center"/>
+        <TextBox Name="tbxUsername" TextWrapping="Wrap" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Background="#FFECECEC" VerticalAlignment="Top" TextChanged="tbxUsername_TextChanged"/>
+        <Label Name="lblUsername" IsHitTestVisible="False" Content="Username" VerticalAlignment="Top" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0" MinWidth="4" HorizontalAlignment="Center"/>
+        <Button Content="Login" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Click="Button_Click" />
+        <Label x:Name="lblLoginFailed" Content="Logged in failed" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" Background="{x:Null}" Foreground="#DDFF0000" Visibility="Hidden" Grid.Row="3"/>
+
+    </Grid>
+</Window>

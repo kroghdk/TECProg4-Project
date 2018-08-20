@@ -28,11 +28,9 @@ import java.sql.Types;
 public class GetMessage extends DSHttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/*
 	public Boolean setRequireSession(){
     	return true;
     }
-    */
     
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestQueryParam requestQueryParams[] =
@@ -52,7 +50,7 @@ public class GetMessage extends DSHttpServlet {
 							" LEFT JOIN user_message_recipient umr ON (um.user_message_id = umr.user_message_id)" +
 							" LEFT JOIN user_message_recipient umr2 ON (um.user_message_id = umr.user_message_id)" +
 							" WHERE umr.user_message_id=umr2.user_message_id AND umr.user_id <> umr2.user_id AND umr.user_id=? AND umr2.user_id=?;");
-			preparedStatement.setInt(1, 1);//preparedStatement.setInt(1, user.getUserId());
+			preparedStatement.setInt(1, user.getUserId()); //preparedStatement.setInt(1, 1);
 			preparedStatement.setInt(2, requestQuery.getIntParamValue("USER"));
 		    
 		    SQLQueryResult sqlQueryResult[] = {

@@ -25,6 +25,14 @@
 		<servlet-name>ValidateSession</servlet-name>
 		<servlet-class>datingsite.ValidateSession</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetLike</servlet-name>
+		<servlet-class>datingsite.GetLike</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetConnection</servlet-name>
+		<servlet-class>datingsite.GetConnection</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>GetUsers</servlet-name>
@@ -54,6 +62,16 @@
 	<servlet-mapping>
 		<servlet-name>ValidateSession</servlet-name>
 		<url-pattern>/ValidateSession</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetLike</servlet-name>
+		<url-pattern>/GetLike</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetConnection</servlet-name>
+		<url-pattern>/GetConnection</url-pattern>
 	</servlet-mapping>
 	
     <welcome-file-list>

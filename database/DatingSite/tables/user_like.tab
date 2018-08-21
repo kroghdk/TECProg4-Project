@@ -1,8 +1,9 @@
 DROP TABLE IF EXISTS user_like;
 CREATE TABLE user_like (
   user_like_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int(11),
-  liked_user_id int(11),
+  user_id int(11) NOT NULL,
+  liked_user_id int(11) NOT NULL,
+  liked int(11) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT user_like_user_fk FOREIGN KEY (user_id) REFERENCES user (user_id) ON DELETE CASCADE,

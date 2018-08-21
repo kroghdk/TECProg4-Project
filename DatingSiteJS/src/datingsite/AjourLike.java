@@ -10,6 +10,7 @@ package datingsite;
 
 import goflib.RequestQuery;
 import goflib.RequestQueryParam;
+import goflib.SQLQuery;
 import org.dom4j.Element;
 
 import javax.servlet.ServletException;
@@ -31,33 +32,22 @@ public class AjourLike extends DSHttpServlet {
     }
     
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		RequestQueryParam requestQueryParams[] =
 				{
-						new RequestQueryParam("USER_ID", null, "user_id", Types.INTEGER, 1, 11, false),
-						new RequestQueryParam("LIKE", null, "like", Types.INTEGER, 1, 11, false)
+						new RequestQueryParam("ME", null, "user_id", Types.INTEGER, 1, 11, true),
+						new RequestQueryParam("USER_ID", null, "liked_user_id", Types.INTEGER, 1, 11, true),
+						new RequestQueryParam("LIKE", null, "liked", Types.INTEGER, 1, 11, false)
 				};
 		RequestQuery requestQuery = new RequestQuery(request, requestQueryParams);
+		requestQuery.getParam("ME").setValue(user.getUserId().toString());
 		if(Runtime.console != null) Runtime.console.Debug(this.getClass().getName()+" - requestQuery= "+requestQuery.xmlDoc.asXML());
 		xmlDoc = requestQuery.checkParams();
 		if(xmlDoc.HasError() == true){
 			return;
 		}
-
-		try {
-		    PreparedStatement preparedStatement = database.getConnection().prepareStatement(
-		    		"CALL sendmessage(?, ?, ?, @user_message_id);");
-		    preparedStatement.setInt(1, user.getUserId());
-			preparedStatement.setInt(2, requestQuery.getIntParamValue("MESSAGE_TO"));
-			preparedStatement.setString(3, requestQuery.getParamValue("MESSAGE"));
-			preparedStatement.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-			xmlDoc.error("Failed to send message");
-			return;
-		}
-		Element rows = xmlDoc.selectSingleNode("//ROWS");
-		Element row = xmlDoc.addChild(rows, "ROW");
-		xmlDoc.addChild(row, "RESPOND", "SUCCESS");
+		SQLQuery sqlQuery = new SQLQuery(database, Runtime.console);
+		xmlDoc = sqlQuery.runAjourStatement("user_like", requestQuery);
 	}
 
 }

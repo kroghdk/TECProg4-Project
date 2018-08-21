@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS gender;
+CREATE TABLE gender (
+  gender_id int(11) NOT NULL PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  short_name varchar(255) NOT NULL,
+  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT gender_uk UNIQUE (short_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

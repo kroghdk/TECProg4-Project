@@ -38,7 +38,7 @@ public class GetConnection extends DSHttpServlet {
 							" LEFT JOIN user_message_recipient umr2 ON (umr.user_message_id = umr2.user_message_id)" +
 							" LEFT JOIN user_like ul ON (u.user_id=ul.liked_user_id)" +
 							" LEFT JOIN user_like ul2 ON (ul.user_id=ul2.liked_user_id)" +
-							" WHERE (ul.liked_user_id=ul2.user_id AND ul.user_id=?) OR (umr2.user_id <> umr.user_id) AND umr2.user_id=?;");
+							" WHERE (ul.liked_user_id=ul2.user_id AND ul.liked=1 AND ul2.liked=1 AND ul.user_id=?) OR (umr2.user_id <> umr.user_id) AND umr2.user_id=?;");
 			preparedStatement.setInt(1, user.getUserId());//preparedStatement.setInt(1, 1);
 			preparedStatement.setInt(2, user.getUserId());//preparedStatement.setInt(1, 1);
 		    

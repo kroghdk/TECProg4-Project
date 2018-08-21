@@ -34,9 +34,12 @@ public class GetMatches extends DSHttpServlet {
 		try {
 		    PreparedStatement preparedStatement = database.getConnection().prepareStatement(
 		    		"SELECT DISTINCT u.* FROM user u" +
-							" WHERE u.user_id NOT IN (SELECT user_id FROM user_like WHERE liked_user_id=?) AND u.user_id<>?;");
+							" WHERE u.user_id NOT IN (SELECT liked_user_id FROM user_like WHERE user_id=?) AND u.gender=(SELECT find_gender FROM user WHERE user_id=?)" +
+                            " AND u.find_gender=(SELECT gender FROM user WHERE user_id=?) AND u.user_id<>?;");
 			preparedStatement.setInt(1, user.getUserId());
-			preparedStatement.setInt(2, user.getUserId());
+            preparedStatement.setInt(2, user.getUserId());
+            preparedStatement.setInt(3, user.getUserId());
+            preparedStatement.setInt(4, user.getUserId());
 		    
 		    SQLQueryResult sqlQueryResult[] = {
 					new SQLQueryResult("USER_ID", null, "user_id", "getInt"),

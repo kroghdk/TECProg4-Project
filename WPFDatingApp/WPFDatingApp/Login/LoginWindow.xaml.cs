@@ -17,6 +17,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WPFDatingApp.ApiClasses;
+using WPFDatingApp.Helpers;
 using WPFDatingApp.Properties;
 using Visibility = System.Windows.Visibility;
 
@@ -27,41 +29,29 @@ namespace WPFDatingApp.Login
     /// </summary>
     public partial class LoginWindow : Window
     {
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            Application.Current.Shutdown();
+        }
+
         public LoginWindow()
-        {   
-            using (var handler = new HttpClientHandler(){UseCookies = false})
+        {
+            var jsonLogin = HttpClientHelper.Get<JsonLogin>("ValidateSession");
+
+            if (jsonLogin.Page?.Error == null)
             {
-                var httpClient = new HttpClient(handler)
-                {
-                    BaseAddress = new Uri(ApiUrl + "ValidateSession")
-                };
-
-                var message = new HttpRequestMessage(HttpMethod.Get, "");
-                message.Headers.Add("Cookie", $"sessionKey={Settings.Default.SessionKey}");
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-
-                var result = httpClient.SendAsync(message).Result;
-                
-                if (result != null)
-                {
-                    var doc = new XmlDocument();
-                    doc.LoadXml(result.Content.ReadAsStringAsync().Result);
-                    string jsonText = JsonConvert.SerializeXmlNode(doc);
-                    var jsonLogin = JsonConvert.DeserializeObject<JsonLogin>(jsonText);
-
-                    if (jsonLogin.Page?.Error == null)
-                    {
-                        // Switch window
-                        var mainWindow = new MainWindow();
-                        App.Current.MainWindow = mainWindow;
-                        this.Close();
-                        mainWindow.Show();
-                        return;
-                    }
-                }
+                // Switch window
+                var mainWindow = new _mainFrame();
+                App.Current.MainWindow = mainWindow;
+                //this.Close();
+                this.Visibility = Visibility.Hidden;
+                mainWindow.Show();
+                return;
             }
-            
-            
+
+
             InitializeComponent();
         }
 
@@ -95,9 +85,9 @@ namespace WPFDatingApp.Login
 
             var httpClient = new HttpClient
             {
-                BaseAddress = new Uri(ApiUrl + "Login")
+                BaseAddress = new Uri(HttpClientHelper.ApiUrl + "Login"),
+                DefaultRequestHeaders = {Accept = { new MediaTypeWithQualityHeaderValue("application/xml") } }
             };
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
 
             // Post login info
             var response = httpClient.GetStringAsync(string.Format($"?USERNAME={username}&PASSWORD={password}")).Result;
@@ -109,7 +99,7 @@ namespace WPFDatingApp.Login
                 string jsonText = JsonConvert.SerializeXmlNode(doc);
                 var jsonLogin = JsonConvert.DeserializeObject<JsonLogin>(jsonText);
 
-                if (string.IsNullOrEmpty(jsonLogin.Page?.Rows?.Row.SessionKey))
+                if (string.IsNullOrEmpty(jsonLogin.Page?.Rows?.Row[0].SessionKey))
                 {
                     // Error
                     LoginFailedSetStyle(jsonLogin.Page.Error.ErrorMessage);
@@ -117,14 +107,15 @@ namespace WPFDatingApp.Login
                 }
 
                 // Set session Key and user id in settings
-                Settings.Default.SessionKey = jsonLogin.Page.Rows.Row.SessionKey;
+                Settings.Default.SessionKey = jsonLogin.Page.Rows.Row[0].SessionKey;
                 Settings.Default.Save();
 
 
                 // Switch window
-                MainWindow mainWindow = new MainWindow();
+                var mainWindow = new _mainFrame();
                 App.Current.MainWindow = mainWindow;
-                this.Close();
+                //this.Close();
+                this.Visibility = Visibility.Hidden;
                 mainWindow.Show();
             }
         }
@@ -136,7 +127,5 @@ namespace WPFDatingApp.Login
             lblLoginFailed.Visibility = Visibility.Visible;
             lblLoginFailed.Content = errorMessage;
         }
-
-        private const string ApiUrl = "http://dev.riftgen.com:8000/DatingSiteJS/";
     }
 }

@@ -30,12 +30,16 @@
 		<servlet-class>datingsite.GetLike</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>GetConnection</servlet-name>
-		<servlet-class>datingsite.GetConnection</servlet-class>
+		<servlet-name>GetConnections</servlet-name>
+		<servlet-class>datingsite.GetConnections</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GetMatches</servlet-name>
 		<servlet-class>datingsite.GetMatches</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FindUsers</servlet-name>
+		<servlet-class>datingsite.FindUsers</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AjourLike</servlet-name>
@@ -78,13 +82,18 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>GetConnection</servlet-name>
-		<url-pattern>/GetConnection</url-pattern>
+		<servlet-name>GetConnections</servlet-name>
+		<url-pattern>/GetConnections</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>GetMatches</servlet-name>
 		<url-pattern>/GetMatches</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>FindUsers</servlet-name>
+		<url-pattern>/FindUsers</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

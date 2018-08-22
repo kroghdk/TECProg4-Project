@@ -25,6 +25,26 @@
 		<servlet-name>ValidateSession</servlet-name>
 		<servlet-class>datingsite.ValidateSession</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetLike</servlet-name>
+		<servlet-class>datingsite.GetLike</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetConnections</servlet-name>
+		<servlet-class>datingsite.GetConnections</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetMatches</servlet-name>
+		<servlet-class>datingsite.GetMatches</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FindUsers</servlet-name>
+		<servlet-class>datingsite.FindUsers</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AjourLike</servlet-name>
+		<servlet-class>datingsite.AjourLike</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>GetUsers</servlet-name>
@@ -54,6 +74,31 @@
 	<servlet-mapping>
 		<servlet-name>ValidateSession</servlet-name>
 		<url-pattern>/ValidateSession</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetLike</servlet-name>
+		<url-pattern>/GetLike</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetConnections</servlet-name>
+		<url-pattern>/GetConnections</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetMatches</servlet-name>
+		<url-pattern>/GetMatches</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>FindUsers</servlet-name>
+		<url-pattern>/FindUsers</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AjourLike</servlet-name>
+		<url-pattern>/AjourLike</url-pattern>
 	</servlet-mapping>
 	
     <welcome-file-list>

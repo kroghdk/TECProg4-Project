@@ -6,8 +6,14 @@ CREATE TABLE user (
   first_name varchar(255) NOT NULL,
   last_name varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
-  birth_date date DEFAULT NULL,
+  description varchar(2000) NOT NULL,
+  age int(11) DEFAULT NULL,
+  profile_pic int(11) DEFAULT NULL,
+  gender int(11) NOT NULL,
+  find_gender int(11) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT user_gender_fk FOREIGN KEY (gender_id) REFERENCES gender (gender_id),
+  CONSTRAINT user_find_gender_fk FOREIGN KEY (find_gender) REFERENCES gender (gender_id),
   CONSTRAINT user_uk UNIQUE (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

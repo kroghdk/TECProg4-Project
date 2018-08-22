@@ -1,0 +1,11 @@
+gender.tab
+user.tab
+user_like.tab
+user_message.tab
+user_message_recipient.tab
+
+sendmessage.bp
+
+
+INSERT INTO gender (name, short_name) VALUES ('Boy', 'boy');
+INSERT INTO gender (name, short_name) VALUES ('Girl', 'girl');

@@ -40,7 +40,7 @@ public class GetChat extends DSHttpServlet {
 							" LEFT JOIN user_message_recipient umr ON (u.user_id = umr.user_id)" +
 							" LEFT JOIN user_message_recipient umr2 ON (umr.user_message_id = umr2.user_message_id)" +
 							" WHERE umr2.user_id <> umr.user_id AND umr2.user_id=?;");
-			preparedStatement.setInt(1, 1);
+			preparedStatement.setInt(1, user.getUserId());//preparedStatement.setInt(1, 1);
 		    
 		    SQLQueryResult sqlQueryResult[] = {
 					new SQLQueryResult("USER_ID", null, "user_id", "getInt"),

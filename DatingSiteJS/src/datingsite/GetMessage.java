@@ -35,7 +35,8 @@ public class GetMessage extends DSHttpServlet {
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestQueryParam requestQueryParams[] =
 				{
-						new RequestQueryParam("USER", null, "user", Types.INTEGER, 1, 11, true)
+						new RequestQueryParam("USER", null, "user", Types.INTEGER, 1, 11, false),
+						new RequestQueryParam("LAST_MESSAGE", null, "last_message", Types.INTEGER, 11, false)
 				};
 		RequestQuery requestQuery = new RequestQuery(request, requestQueryParams);
 		if(Runtime.console != null) Runtime.console.Debug(this.getClass().getName()+" - requestQuery= "+requestQuery.xmlDoc.asXML());
@@ -45,16 +46,29 @@ public class GetMessage extends DSHttpServlet {
 		}
 
 		try {
-		    PreparedStatement preparedStatement = database.getConnection().prepareStatement(
-		    		"SELECT um.* FROM user_message um" +
-							" LEFT JOIN user_message_recipient umr ON (um.user_message_id = umr.user_message_id)" +
-							" LEFT JOIN user_message_recipient umr2 ON (um.user_message_id = umr.user_message_id)" +
-							" WHERE umr.user_message_id=umr2.user_message_id AND umr.user_id <> umr2.user_id AND umr.user_id=? AND umr2.user_id=?;");
-			preparedStatement.setInt(1, user.getUserId()); //preparedStatement.setInt(1, 1);
-			preparedStatement.setInt(2, requestQuery.getIntParamValue("USER"));
+			PreparedStatement preparedStatement = null;
+			if(requestQuery.getParamValue("LAST_MESSAGE") == null) {
+				preparedStatement = database.getConnection().prepareStatement(
+						"SELECT um.* FROM user_message um" +
+								" LEFT JOIN user_message_recipient umr ON (um.user_message_id = umr.user_message_id)" +
+								" LEFT JOIN user_message_recipient umr2 ON (um.user_message_id = umr.user_message_id)" +
+								" WHERE umr.user_message_id=umr2.user_message_id AND umr.user_id <> umr2.user_id AND umr.user_id=? AND umr2.user_id=?;");
+				preparedStatement.setInt(1, user.getUserId()); //preparedStatement.setInt(1, 1);
+				preparedStatement.setInt(2, requestQuery.getIntParamValue("USER"));
+			}else{
+				preparedStatement = database.getConnection().prepareStatement(
+						"SELECT um.* FROM user_message um" +
+								" LEFT JOIN user_message_recipient umr ON (um.user_message_id = umr.user_message_id)" +
+								" LEFT JOIN user_message_recipient umr2 ON (um.user_message_id = umr.user_message_id)" +
+								" WHERE umr.user_message_id=umr2.user_message_id AND umr.user_id <> umr2.user_id AND umr.user_id=? AND umr2.user_id=?" +
+								" AND um.user_message_id > ?;");
+				preparedStatement.setInt(1, user.getUserId()); //preparedStatement.setInt(1, 1);
+				preparedStatement.setInt(2, requestQuery.getIntParamValue("USER"));
+				preparedStatement.setInt(3, requestQuery.getIntParamValue("LAST_MESSAGE"));
+			}
 		    
 		    SQLQueryResult sqlQueryResult[] = {
-					new SQLQueryResult("USER_MESSAGE_ID", null, "from_user", "getInt"),
+					new SQLQueryResult("USER_MESSAGE_ID", null, "user_message_id", "getInt"),
 					new SQLQueryResult("FROM_USER", null, "from_user", "getInt"),
 					new SQLQueryResult("CONTENT", null, "content", "getString"),
 					new SQLQueryResult("CREATED", null, "created", "getString")
@@ -67,5 +81,4 @@ public class GetMessage extends DSHttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 }

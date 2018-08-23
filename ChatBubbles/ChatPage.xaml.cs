@@ -124,6 +124,8 @@ namespace ChatBubbles
             TextInput.Text = "";
             TextInput.Focus();
 
+            // Send message to server
+
             // FOLLOWING CODEBLOCK IS ONLY FOR DEMONSTRATION PURPOSES
             // DELETE FOR NORMAL USE!
 

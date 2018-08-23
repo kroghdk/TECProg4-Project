@@ -79,6 +79,18 @@ namespace WPFDatingApp.ApiClasses
 
         [JsonProperty("PROFILE_PIC")]
         public string ProfilePicture { get; set; }
+
+        [JsonProperty("CONTENT")]
+        public string MessageContent { get; set; }
+
+        [JsonProperty("CREATED")]
+        public string MessageTimestamp { get; set; }
+
+        [JsonProperty("FROM_USER")]
+        public string MessageFromUser { get; set; }
+
+        [JsonProperty("USER_MESSAGE_ID")]
+        public string MessageUserMesssageID { get; set; }
     }
 
     public partial class Xml

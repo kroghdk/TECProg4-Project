@@ -75,6 +75,17 @@
     <Compile Include="ChatOverview.xaml.cs">
       <DependentUpon>ChatOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Chat\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chat\ConversationView.xaml.cs">
+      <DependentUpon>ConversationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chat\GridUtils.cs" />
+    <Compile Include="Chat\Message.cs" />
+    <Compile Include="Chat\MessageCollection.cs" />
+    <Compile Include="Chat\MessageTemplateSelector.cs" />
+    <Compile Include="Chat\StringFormatConverter.cs" />
     <Compile Include="Helpers\HttpClientHelper.cs" />
     <Compile Include="Information\Person.cs" />
     <Compile Include="Search.xaml.cs">
@@ -88,6 +99,14 @@
     <Page Include="ChatOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Chat\ChatPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Chat\ConversationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Login\LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -147,12 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\lovooove.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ChatBubbles\ChatBubbles.csproj">
-      <Project>{3e48a2ed-e030-495c-b0bf-ba4bb364ba22}</Project>
-      <Name>ChatBubbles</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

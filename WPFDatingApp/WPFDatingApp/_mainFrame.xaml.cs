@@ -45,7 +45,6 @@ namespace WPFDatingApp
 
             var loginWindow = new LoginWindow();
             App.Current.MainWindow = loginWindow;
-            //this.Close();
             this.Visibility = Visibility.Hidden;
             loginWindow.Show();
             return;
@@ -60,7 +59,7 @@ namespace WPFDatingApp
 
         private void Chats_OnSelected_Selected(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new ChatOverview();
+            MainFrame.Content = new ChatOverview(this);
         }
     }
 }

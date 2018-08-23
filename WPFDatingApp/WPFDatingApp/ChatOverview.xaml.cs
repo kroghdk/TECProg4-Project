@@ -24,8 +24,12 @@ namespace WPFDatingApp
     /// </summary>
     public partial class ChatOverview : Page
     {
-        public ChatOverview()
+        public _mainFrame MainFrameRef { get; set; }
+
+        public ChatOverview(_mainFrame mainFrame)
         {
+            MainFrameRef = mainFrame;
+
             InitializeComponent();
             GetChats();
         }
@@ -69,7 +73,8 @@ namespace WPFDatingApp
         {
             var userId = ((Button)sender).Tag.ToString();
 
-            ChatFrame.Content = new ChatPage(userid: userId);
+            //ChatFrame.Content = new ChatPage(userid: userId);
+            (App.Current.MainWindow as _mainFrame).MainFrame.Content = new ChatPage(userId, MainFrameRef);
         }
     }
 }

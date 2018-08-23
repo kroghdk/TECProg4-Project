@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
-namespace WPFDatingApp.Login
+namespace WPFDatingApp.ApiClasses
 {
     public partial class JsonLogin
     {
@@ -39,7 +37,8 @@ namespace WPFDatingApp.Login
     public partial class Rows
     {
         [JsonProperty("ROW")]
-        public Row Row { get; set; }
+        [JsonConverter(typeof(SingleOrArrayConverter<Row>))]
+        public List<Row> Row { get; set; }
     }
 
     public partial class Error
@@ -50,12 +49,36 @@ namespace WPFDatingApp.Login
 
     public partial class Row
     {
+        [JsonProperty("LOGGED_IN")]
+        public string LoggedIn { get; set; }
+
         [JsonProperty("SESSION_KEY")]
         public string SessionKey { get; set; }
 
         [JsonProperty("USER_ID")]
         [JsonConverter(typeof(ParseStringConverter))]
         public long UserId { get; set; }
+
+        [JsonProperty("USERNAME")]
+        public string Username { get; set; }
+
+        [JsonProperty("FIRST_NAME")]
+        public string FirstName { get; set; }
+
+        [JsonProperty("LAST_NAME")]
+        public string LastName { get; set; }
+
+        [JsonProperty("EMAIL")]
+        public string Email { get; set; }
+
+        [JsonProperty("AGE")]
+        public int Age { get; set; }
+
+        [JsonProperty("DESCRIPTION")]
+        public string Description { get; set; }
+
+        [JsonProperty("PROFILE_PIC")]
+        public string ProfilePicture { get; set; }
     }
 
     public partial class Xml
@@ -118,5 +141,38 @@ namespace WPFDatingApp.Login
         }
 
         public static readonly ParseStringConverter Singleton = new ParseStringConverter();
+    }
+
+    public class SingleOrArrayConverter<T> : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return (objectType == typeof(List<T>));
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            JToken token = JToken.Load(reader);
+            if (token.Type == JTokenType.Array)
+            {
+                return token.ToObject<List<T>>();
+            }
+            return new List<T> { token.ToObject<T>() };
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            List<T> list = (List<T>)value;
+            if (list.Count == 1)
+            {
+                value = list[0];
+            }
+            serializer.Serialize(writer, value);
+        }
+
+        public override bool CanWrite
+        {
+            get { return true; }
+        }
     }
 }

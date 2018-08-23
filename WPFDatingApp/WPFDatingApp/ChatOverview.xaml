@@ -1,0 +1,33 @@
+﻿<Page x:Class="WPFDatingApp.ChatOverview"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFDatingApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="920" d:DesignWidth="490"
+      Title="ChatOverviewOverview"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      Background="{DynamicResource MaterialDesignPaper}"
+      TextElement.FontWeight="Medium"
+      TextElement.FontSize="14"
+      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer CanContentScroll="True" HorizontalAlignment="Left" VerticalAlignment="Top" Height="920" Width="490">
+            <StackPanel x:Name="sp">
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Frame x:Name="ChatFrame" NavigationUIVisibility="Hidden">
+
+        </Frame>
+    </Grid>
+</Page>

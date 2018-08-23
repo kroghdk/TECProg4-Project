@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Types;
 
 
@@ -52,15 +53,28 @@ public class SendMessage extends DSHttpServlet {
 		    preparedStatement.setInt(1, user.getUserId());
 			preparedStatement.setInt(2, requestQuery.getIntParamValue("MESSAGE_TO"));
 			preparedStatement.setString(3, requestQuery.getParamValue("MESSAGE"));
-			preparedStatement.execute();
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			Integer userMessageId = null;
+			while (resultSet.next()) {
+				userMessageId = resultSet.getInt("user_message_id");
+			}
+			if(userMessageId != null){
+				Element rows = xmlDoc.selectSingleNode("//ROWS");
+				Element row = xmlDoc.addChild(rows, "ROW");
+				xmlDoc.addChild(row, "USER_MESSAGE_ID", userMessageId);
+				xmlDoc.addChild(row, "RESPOND", "SUCCESS");
+			}else{
+				Element rows = xmlDoc.selectSingleNode("//ROWS");
+				Element row = xmlDoc.addChild(rows, "ROW");
+				xmlDoc.addChild(row, "RESPOND", "SUCCESS");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			xmlDoc.error("Failed to send message");
 			return;
 		}
-		Element rows = xmlDoc.selectSingleNode("//ROWS");
-		Element row = xmlDoc.addChild(rows, "ROW");
-		xmlDoc.addChild(row, "RESPOND", "SUCCESS");
 	}
 
 }
